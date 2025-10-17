@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: meu_app_java
+    restart: always 
+    volumes: 
+      - ./src:/app/src
+      - ./pom.xml:/app/pom.xml
+      # - maven-cache:/root/.m2
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    environment:
+      # Variáveis que sua aplicação pode usar para se conectar ao DB
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: meu_banco
+      DB_USER: admin
+      DB_PASSWORD: admin123
+      TZ: America/Sao_Paulo
+    ports:
+      - "8080:8080" # exponha a porta que sua aplicação usa
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "db_prod"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+  db:
+    image: postgres:15
+    container_name: meu_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: meu_banco
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d # opcional, scripts de inicialização
+
+volumes:
+  postgres_data:

@@ -1,0 +1,29 @@
+# Estágio 1: Compilação (Build)
+FROM eclipse-temurin:11-jdk-alpine AS builder
+RUN apk add --no-cache maven 
+
+WORKDIR /app
+
+# Copiar apenas os arquivos de dependências primeiro (cache inteligente)
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copiar o código fonte e compilar
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Estágio 2: Execução (Runtime)
+FROM eclipse-temurin:11-jre-alpine
+
+RUN apk add --no-cache bash
+
+WORKDIR /app
+
+# Copiar apenas o JAR compilado do estágio anterior
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expor a porta da aplicação
+EXPOSE 8080
+
+# Executar a aplicação
+ENTRYPOINT ["java", "-jar", "app.jar"]
