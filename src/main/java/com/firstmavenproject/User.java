@@ -15,14 +15,22 @@ public class User {
         this.userID = userID;
         this.userName = userName; 
         this.userEmail = userEmail; 
-        this.userPassword = userPassword; 
+        this.userPassword = getHashPassword(userPassword); 
     }
 
-    public void getHashPassword(){
+    public String getHashPassword(String userPassword){
         BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12); 
         Hash hash = Password.hash(userPassword).with(bcrypt);
         System.out.println("aqui o hash " + hash.getResult());    
+        return hash.getResult(); 
     }
 
+    public void getUserData(){
+        System.out.println("userName: " + userName);
+        System.out.println("userEmail: "  + userEmail);
+        System.out.println("userId: " + userID);
+        System.out.println("userPassWord: "  + userPassword);
+
+    }
 
 }

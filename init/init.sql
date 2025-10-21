@@ -2,7 +2,8 @@
 CREATE TABLE usuarios (
     id_usuario SERIAL PRIMARY KEY,
     nome_usuario VARCHAR(100) NOT NULL,
-    email_usuario VARCHAR(100) UNIQUE NOT NULL
+    email_usuario VARCHAR(100) UNIQUE NOT NULL,
+    hash_usuario VARCHAR(100) UNIQUE NOT NULL
 ); 
 
 -- Criando tabela admin 
