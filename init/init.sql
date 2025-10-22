@@ -23,6 +23,6 @@ CREATE TABLE clientes (
 ); 
 
 -- Inserir um usuário
-INSERT INTO usuarios (nome_usuario, email_usuario) 
-VALUES ('João da Silva', 'joao@email.com')
+INSERT INTO usuarios (nome_usuario, email_usuario, hash_usuario) 
+VALUES ('João da Silva', 'joao@email.com', 'sasdafdfjeuhaudgTDAODAJD')
 RETURNING id_usuario;

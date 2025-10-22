@@ -12,10 +12,22 @@ public class User {
     private String userPassword; 
 
     public User(int userID, String userName, String userEmail, String userPassword){
-        this.userID = userID;
+        // this.userID = userID;
         this.userName = userName; 
         this.userEmail = userEmail; 
         this.userPassword = getHashPassword(userPassword); 
+    }
+    
+    public String getUserName(){
+        return this.userName; 
+    }
+
+    public String getUserEmail(){
+        return this.userEmail; 
+    }
+
+    public String getUserPassword(){
+        return this.userPassword; 
     }
 
     public String getHashPassword(String userPassword){

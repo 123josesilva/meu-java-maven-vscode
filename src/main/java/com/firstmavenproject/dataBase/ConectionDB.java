@@ -1,23 +1,25 @@
 package com.firstmavenproject.dataBase;
 
 import java.sql.*;
-import java.util.Properties; 
+import java.util.Properties;
 
 public class ConectionDB {
-    
-    Connection connection = null;
-    String url = "jdbc:postgresql://meu_postgres:5432/meu_banco";
-    
-    public void getConnectionDb(){
+
+    private static Connection conn;
+    private static String url = "jdbc:postgresql://meu_postgres:5432/meu_banco";
+
+    public static Connection getConnectionDb() {
         try {
-            Properties props = new Properties(); 
+
+            Properties props = new Properties();
             props.setProperty("user", "admin");
             props.setProperty("password", "admin123");
 
-            Connection conn = DriverManager.getConnection(url, props);
-            if (conn != null){
+            conn = DriverManager.getConnection(url, props);
+
+            if (conn != null) {
                 System.out.println("banco conectado!");
-            }else{
+            } else {
                 System.out.println("falha ao conectar com o banco!");
             }
 
@@ -26,7 +28,8 @@ public class ConectionDB {
             System.out.println(e);
 
         }
-    }
 
+        return conn;
+    }
 
 }

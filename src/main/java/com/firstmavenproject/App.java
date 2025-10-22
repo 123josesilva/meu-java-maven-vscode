@@ -3,12 +3,15 @@ package com.firstmavenproject;
 import java.util.Scanner;
 
 import com.firstmavenproject.dataBase.ConectionDB;
+import com.firstmavenproject.dataBase.CrudDao;
+import com.firstmavenproject.dataBase.UserDaoImpl;
 
 public class App {
     public static void main(String[] args) {
         // concetando com o postgres
         ConectionDB cdb = new ConectionDB(); 
         cdb.getConnectionDb();
+        CrudDao crudUser = new UserDaoImpl();
         Scanner sc = new Scanner(System.in);
         System.out.println("<<---maven project is running!!--->>");
         boolean isControler = true;
@@ -29,7 +32,8 @@ public class App {
                 //cria user
                 User nU = new User(0, newUserName, newUserEmail, newUserPassword);
                 nU.getUserData();
-
+                boolean isCreated =  crudUser.creatData(nU); 
+                System.out.println(isCreated);
             } else if (entradaDedados == 5) {
                 System.out.println("bye! bye!");
                 isControler = false;
