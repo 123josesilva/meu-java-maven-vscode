@@ -18,15 +18,23 @@ public class App {
         while (isControler) {
             System.out.println("Digite 1 para criar um usuario");
             System.out.println("Digite [5] para sair");
-            int entradaDedados = sc.nextInt();
+            
+            int entradaDedados = 0; 
+            try{
+                entradaDedados = Integer.parseInt(sc.nextLine());  
+            }catch(NumberFormatException e){
+                System.out.println("erro ao formatar o user input em int! ");
+                e.printStackTrace();
+            }
+
             System.out.println("aqui seu input: " + entradaDedados);
             if (entradaDedados == 1) {
                 System.out.println("Digite seu nome: ");
                 String newUserName = sc.nextLine(); 
-                sc.nextLine();
                 System.out.println("Informe seu email: ");
                 String newUserEmail = sc.nextLine();
                 System.out.println("digite uma senha: ");
+
                 String newUserPassword = sc.nextLine();
                 
                 //cria user

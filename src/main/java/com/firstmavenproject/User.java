@@ -13,6 +13,10 @@ public class User {
 
     public User(int userID, String userName, String userEmail, String userPassword){
         // this.userID = userID;
+        if (userName == "" || userEmail.isEmpty() || userPassword == "") {
+            System.out.println("erro ao criar o usuário");
+        }
+
         this.userName = userName; 
         this.userEmail = userEmail; 
         this.userPassword = getHashPassword(userPassword); 
