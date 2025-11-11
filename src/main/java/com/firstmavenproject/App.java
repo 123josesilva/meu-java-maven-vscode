@@ -9,7 +9,7 @@ import com.firstmavenproject.dataBase.UserDaoImpl;
 public class App {
     public static void main(String[] args) {
         // concetando com o postgres
-        ConectionDB cdb = new ConectionDB(); 
+        ConectionDB cdb = new ConectionDB();
         cdb.getConnectionDb();
         CrudDao crudUser = new UserDaoImpl();
         Scanner sc = new Scanner(System.in);
@@ -18,11 +18,11 @@ public class App {
         while (isControler) {
             System.out.println("Digite 1 para criar um usuario");
             System.out.println("Digite [5] para sair");
-            
-            int entradaDedados = 0; 
-            try{
-                entradaDedados = Integer.parseInt(sc.nextLine());  
-            }catch(NumberFormatException e){
+
+            int entradaDedados = 0;
+            try {
+                entradaDedados = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
                 System.out.println("erro ao formatar o user input em int! ");
                 e.printStackTrace();
             }
@@ -30,18 +30,25 @@ public class App {
             System.out.println("aqui seu input: " + entradaDedados);
             if (entradaDedados == 1) {
                 System.out.println("Digite seu nome: ");
-                String newUserName = sc.nextLine(); 
+                String newUserName = sc.nextLine();
                 System.out.println("Informe seu email: ");
                 String newUserEmail = sc.nextLine();
                 System.out.println("digite uma senha: ");
 
                 String newUserPassword = sc.nextLine();
-                
-                //cria user
-                User nU = new User(0, newUserName, newUserEmail, newUserPassword);
-                nU.getUserData();
-                boolean isCreated =  crudUser.creatData(nU); 
-                System.out.println(isCreated);
+                try {
+                    User nU = new User(0, newUserName, newUserEmail, newUserPassword);
+                    nU.getUserData();
+                    // cria user
+                    boolean isCreated = crudUser.creatData(nU);
+                    System.out.println(isCreated);
+
+                } catch (IllegalArgumentException e) {
+
+                    System.out.println("erro ao criar o usuário " + e.getMessage());
+
+                }
+
             } else if (entradaDedados == 5) {
                 System.out.println("bye! bye!");
                 isControler = false;

@@ -9,43 +9,51 @@ public class User {
     private int userID;
     private String userName;
     private String userEmail;
-    private String userPassword; 
+    private String userPassword;
 
-    public User(int userID, String userName, String userEmail, String userPassword){
+    public User(int userID, String userName, String userEmail, String userPassword) {
         // this.userID = userID;
-        if (userName == "" || userEmail.isEmpty() || userPassword == "") {
-            System.out.println("erro ao criar o usuário");
+        if (userName == null || userName.isBlank()) {
+            throw new IllegalArgumentException("O campo nome nao pode estar vazio");
         }
 
-        this.userName = userName; 
-        this.userEmail = userEmail; 
-        this.userPassword = getHashPassword(userPassword); 
-    }
-    
-    public String getUserName(){
-        return this.userName; 
+        if (userEmail == null || userEmail.isBlank()) {
+            throw new IllegalArgumentException("O campo email nao pode estar vazio");
+        }
+
+        if (userPassword == null || userPassword.isBlank()) {
+            throw new IllegalArgumentException("O campo senha nao pode estar vazio");
+        }
+
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPassword = getHashPassword(userPassword);
     }
 
-    public String getUserEmail(){
-        return this.userEmail; 
+    public String getUserName() {
+        return this.userName;
     }
 
-    public String getUserPassword(){
-        return this.userPassword; 
+    public String getUserEmail() {
+        return this.userEmail;
     }
 
-    public String getHashPassword(String userPassword){
-        BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12); 
+    public String getUserPassword() {
+        return this.userPassword;
+    }
+
+    public String getHashPassword(String userPassword) {
+        BcryptFunction bcrypt = BcryptFunction.getInstance(Bcrypt.B, 12);
         Hash hash = Password.hash(userPassword).with(bcrypt);
-        System.out.println("aqui o hash " + hash.getResult());    
-        return hash.getResult(); 
+        System.out.println("aqui o hash " + hash.getResult());
+        return hash.getResult();
     }
 
-    public void getUserData(){
+    public void getUserData() {
         System.out.println("userName: " + userName);
-        System.out.println("userEmail: "  + userEmail);
+        System.out.println("userEmail: " + userEmail);
         System.out.println("userId: " + userID);
-        System.out.println("userPassWord: "  + userPassword);
+        System.out.println("userPassWord: " + userPassword);
 
     }
 
