@@ -11,7 +11,7 @@ public class User {
     private String userEmail;
     private String userPassword;
 
-    public User(int userID, String userName, String userEmail, String userPassword) {
+    public User(String userName, String userEmail, String userPassword) {
         // this.userID = userID;
         if (userName == null || userName.isBlank()) {
             throw new IllegalArgumentException("O campo nome nao pode estar vazio");
